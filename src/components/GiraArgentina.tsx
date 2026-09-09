@@ -7,9 +7,49 @@ const NUMBER_SIZE = "clamp(7.75rem, 55.31cqw, 14.75rem)";
 const MONTH_SIZE = "clamp(3.9rem, 22.03cqw, 5.875rem)";
 const YEAR_SIZE = "clamp(2.6rem, 11.5cqw, 2.7rem)";
 
+// Easing suave tipo "cubic ease-out" pronunciado, igual al usado en
+// IntroCTA.tsx, para que el movimiento se sienta fluido y consistente
+// con el resto del sitio.
+const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
+
+const imageReveal = {
+  hidden: { opacity: 0, scale: 1.04 },
+  show: { opacity: 1, scale: 1, transition: { duration: 1, ease: SMOOTH_EASE } },
+};
+
+const textContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  show: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: SMOOTH_EASE } },
+};
+
+const slideFromLeft = {
+  hidden: { opacity: 0, x: -28 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: SMOOTH_EASE } },
+};
+
+const slideFromRight = {
+  hidden: { opacity: 0, x: 28 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: SMOOTH_EASE } },
+};
+
+const fadeButton = {
+  hidden: { opacity: 0, y: 18, scale: 0.96 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: SMOOTH_EASE },
+  },
+};
+
+const numberRow = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
 };
 
 const SLIDESHOW_IMAGES = [
@@ -23,15 +63,14 @@ export default function GiraArgentina() {
   return (
     <section id="gira" className="relative bg-bh-black py-16 md:py-20">
       <div className="mx-auto px-5 md:px-8">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          variants={fadeUp}
-          className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12"
-        >
-          <div className="relative aspect-[16/11] overflow-hidden rounded-2xl md:col-span-2">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={imageReveal}
+            className="relative aspect-[16/11] overflow-hidden rounded-2xl md:col-span-2"
+          >
             {SLIDESHOW_IMAGES.map((src, i) => (
               <img
                 key={src}
@@ -41,25 +80,45 @@ export default function GiraArgentina() {
                 style={{ animationDelay: `${i * (SLIDESHOW_CYCLE / SLIDESHOW_IMAGES.length)}s` }}
               />
             ))}
-          </div>
 
-          <div className="@container flex flex-col justify-center text-left">
-            <h2
+            <div
+              className="absolute -left-16 top-8 z-30 w-56 -rotate-45 bg-bh-blue py-2 text-center shadow-[0_4px_12px_rgba(0,0,0,0.35)]"
+              aria-hidden="true"
+            >
+              <span className="text-xs font-bold uppercase tracking-[0.15em] text-bh-white">
+                Gira 2027
+              </span>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={textContainer}
+            className="@container flex flex-col justify-center text-left"
+          >
+            <motion.h2
+              variants={fadeUp}
               className="font-display whitespace-nowrap leading-[0.9] text-bh-white"
               style={{ fontFamily: "var(--font-display)", fontSize: TITLE_SIZE }}
             >
               GIRA A LA ARGENTINA
-            </h2>
+            </motion.h2>
 
-            <div className="mt-8 flex items-center justify-between">
-              <span
+            <motion.div variants={numberRow} className="mt-8 flex items-center justify-between">
+              <motion.span
+                variants={slideFromLeft}
                 className="font-display leading-none text-bh-white"
                 style={{ fontFamily: "var(--font-display)", fontSize: NUMBER_SIZE }}
               >
                 01
-              </span>
+              </motion.span>
 
-              <div className="flex flex-col items-center gap-2 text-center">
+              <motion.div
+                variants={fadeUp}
+                className="flex flex-col items-center gap-2 text-center"
+              >
                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-bh-white/60">
                   Buenos Aires
                 </span>
@@ -74,46 +133,56 @@ export default function GiraArgentina() {
                   FEBRERO
                 </span>
                 <span
-                  className="-translate-y-[10px] font-bold leading-none text-bh-white"
-                  style={{ fontFamily: "var(--font-body)", fontSize: YEAR_SIZE }}
+                  className="font-bold leading-none text-bh-white"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: YEAR_SIZE,
+                    marginTop: "-10px",
+                  }}
                 >
                   2027
                 </span>
-              </div>
+              </motion.div>
 
-              <span
+              <motion.span
+                variants={slideFromRight}
                 className="font-display leading-none text-bh-white"
                 style={{ fontFamily: "var(--font-display)", fontSize: NUMBER_SIZE }}
               >
                 06
-              </span>
-            </div>
+              </motion.span>
+            </motion.div>
 
-            <div className="mt-8 border-t border-bh-white/25 py-4">
+            <motion.div variants={fadeUp} className="mt-8 border-t border-bh-white/25 py-4">
               <p className="text-center text-sm uppercase tracking-wide text-bh-white/80 sm:text-base">
                 <span className="font-bold text-bh-white">Categorías:</span> Sub -13 | Sub -15
               </p>
-            </div>
+            </motion.div>
             <div className="border-t border-bh-white/25" />
 
-            <p className="mt-8 text-center text-base uppercase leading-relaxed text-bh-white/70 sm:text-lg">
+            <motion.p
+              variants={fadeUp}
+              className="mt-8 text-center text-base uppercase leading-relaxed text-bh-white/70 sm:text-lg"
+            >
               Vive una experiencia
               <br />
               deportiva inolvidable
-            </p>
+            </motion.p>
 
-            <ShinyButton
-              href={whatsappLink(
-                "Hola Basket House! Quiero reservar mi cupo para la gira a Argentina."
-              )}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-8 self-center !px-[55px] text-[21px]"
-            >
-              Reserva tu cupo
-            </ShinyButton>
-          </div>
-        </motion.div>
+            <motion.div variants={fadeButton} className="mt-8 self-center">
+              <ShinyButton
+                href={whatsappLink(
+                  "Hola Basket House! Quiero reservar mi cupo para la gira a Argentina."
+                )}
+                target="_blank"
+                rel="noreferrer"
+                className="!px-[55px] text-[21px]"
+              >
+                Reserva tu cupo
+              </ShinyButton>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

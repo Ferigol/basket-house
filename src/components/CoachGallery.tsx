@@ -1,4 +1,34 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
+
+// Mismo easing suave usado en el resto del sitio (NOSOTROS, GIRA 2027)
+// para que el movimiento se sienta fluido y consistente.
+const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
+
+const photoContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.15 } },
+};
+
+const photoItem = {
+  hidden: { opacity: 0, y: 28, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.8, ease: SMOOTH_EASE },
+  },
+};
+
+const logoContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+};
+
+const logoItem = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 0.7, y: 0, transition: { duration: 0.6, ease: SMOOTH_EASE } },
+};
 
 const TEAM = [
   {
@@ -49,7 +79,11 @@ export default function CoachGallery() {
 
   return (
     <section id="coach" className="relative bg-bh-black py-16 md:py-20">
-      <div
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={photoContainer}
         className="mx-auto flex gap-3 px-5 md:px-8"
         style={{ height: HEIGHT_SIZE }}
       >
@@ -58,8 +92,9 @@ export default function CoachGallery() {
           const isDimmed = hovered !== null && !isHovered;
 
           return (
-            <div
+            <motion.div
               key={member.name}
+              variants={photoItem}
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
               className="relative shrink-0 grow basis-0 cursor-pointer overflow-hidden rounded-2xl transition-[flex-grow,filter] duration-500 ease-out"
@@ -108,22 +143,31 @@ export default function CoachGallery() {
                   </div>
                 </>
               )}
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
-      <div className="mx-auto mt-10 flex max-w-7xl flex-wrap items-center justify-between gap-x-10 gap-y-6 px-5 md:mt-14 md:px-8">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.4 }}
+        variants={logoContainer}
+        className="mx-auto mt-10 flex max-w-7xl flex-wrap items-center justify-between gap-x-10 gap-y-6 px-5 md:mt-14 md:px-8"
+      >
         {LOGOS.map((logo) => (
-          <img
+          <motion.img
             key={logo.src}
+            variants={logoItem}
+            whileHover={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
             src={logo.src}
             alt={logo.alt}
-            className="shrink-0 object-contain opacity-70 transition-opacity duration-300 hover:opacity-100"
+            className="shrink-0 object-contain"
             style={{ width: logo.w * LOGO_SCALE, height: logo.h * LOGO_SCALE }}
           />
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

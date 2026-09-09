@@ -22,45 +22,91 @@ const PILLARS = [
   },
 ];
 
+const PARAGRAPH_LINES = [
+  "Somos una escuela formativa de basket y",
+  "técnica individual. Acompañamos a cada",
+  "alumna en su proceso de evolución, con el",
+  "objetivo puesto en el desarrollo personal a",
+  "través del basketball.",
+];
+
+// Easing suave tipo "cubic ease-out" pronunciado, para que el
+// movimiento se sienta fluido y no mecánico.
+const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
+
+const paragraphContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.13 } },
+};
+
+const paragraphLine = {
+  hidden: { opacity: 0, y: 18, filter: "blur(6px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: SMOOTH_EASE },
+  },
+};
+
+const pillarContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.18, delayChildren: 0.05 } },
+};
+
+const pillarItem = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: SMOOTH_EASE } },
+};
+
+const pillarLine = {
+  hidden: { scaleX: 0 },
+  show: { scaleX: 1, transition: { duration: 0.7, ease: SMOOTH_EASE } },
+};
+
 export default function IntroCTA() {
   return (
     <section id="nosotros" className="relative bg-bh-black py-20 md:py-28">
       {/* Texto principal: grande, a todo el ancho de la ventana, casi a sangre */}
-      <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="px-5 md:px-8"
-      >
-        <p
-          className="mx-auto w-fit text-left leading-[1.05] text-bh-white/90 sm:whitespace-nowrap"
+      <div className="px-5 md:px-8">
+        <motion.p
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={paragraphContainer}
+          className="mx-auto w-fit text-left leading-[1.05] text-bh-white/90"
           style={{ fontSize: PARAGRAPH_SIZE }}
         >
-          Somos una escuela formativa de basket y{" "}
-          <br className="hidden sm:block" />
-          técnica individual. Acompañamos a cada{" "}
-          <br className="hidden sm:block" />
-          alumna en su proceso de evolución, con el{" "}
-          <br className="hidden sm:block" />
-          objetivo puesto en el desarrollo personal a{" "}
-          <br className="hidden sm:block" />
-          través del basketball.
-        </p>
-      </motion.div>
+          {PARAGRAPH_LINES.map((line, li) => (
+            <motion.span
+              key={li}
+              variants={paragraphLine}
+              className="sm:block sm:whitespace-nowrap"
+            >
+              {line}
+              {li < PARAGRAPH_LINES.length - 1 && " "}
+            </motion.span>
+          ))}
+        </motion.p>
+      </div>
 
       <div className="mx-auto px-5 md:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+          variants={pillarContainer}
           className="mt-16 md:mt-24"
         >
           {/* Línea simétrica: se parte en 3 tramos, uno por columna */}
           <div className="grid grid-cols-1 gap-10 sm:gap-8 md:grid-cols-3 md:gap-12">
             {PILLARS.map((pillar) => (
-              <div key={pillar.title} className="border-t border-bh-white pt-6">
+              <motion.div key={pillar.title} variants={pillarItem} className="pt-6">
+                <motion.div
+                  variants={pillarLine}
+                  style={{ transformOrigin: "left" }}
+                  className="mb-6 h-px w-full bg-bh-white"
+                />
                 <h3
                   className="font-bold uppercase tracking-wide text-bh-white"
                   style={{ fontSize: PILLAR_TITLE_SIZE }}
@@ -78,7 +124,7 @@ export default function IntroCTA() {
                     </span>
                   ))}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
