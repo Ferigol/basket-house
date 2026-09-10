@@ -170,7 +170,7 @@ export default function Programas() {
                     </h3>
 
                     <div
-                      className={`w-full shrink-0 -translate-y-[30px] ${isLeft ? "md:ml-[10px]" : "md:translate-x-[50px] md:text-left"}`}
+                      className={`w-full shrink-0 -translate-y-[30px] ${isLeft ? "md:ml-[10px]" : "md:translate-x-[200px] md:text-left"}`}
                       style={{ maxWidth: "clamp(24rem, 20rem + 16vw, 46rem)" }}
                     >
                       <p

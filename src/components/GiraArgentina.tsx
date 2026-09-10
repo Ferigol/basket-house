@@ -82,7 +82,7 @@ export default function GiraArgentina() {
             ))}
 
             <div
-              className="absolute -left-16 top-8 z-30 w-56 -rotate-45 bg-bh-blue py-2 text-center shadow-[0_4px_12px_rgba(0,0,0,0.35)]"
+              className="absolute -left-16 top-8 z-30 w-56 -rotate-45 bg-[#2864b4] py-[3px] text-center shadow-[0_4px_12px_rgba(0,0,0,0.35)]"
               aria-hidden="true"
             >
               <span className="text-xs font-bold uppercase tracking-[0.15em] text-bh-white">

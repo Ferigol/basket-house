@@ -4,7 +4,7 @@ const LOCATIONS = [
   {
     name: "Magdalena del Mar",
     lines: ["Colegio Reina del Carmelo.", "Entrenamos todo el año."],
-    bg: "#e38034",
+    bg: "#e38134",
   },
   {
     name: "Playa Blanca · Asia",
@@ -15,7 +15,7 @@ const LOCATIONS = [
 
 // Escala con el ancho real de cada bloque (@container), igual que el
 // Footer: crece de forma continua en vez de saltar entre tamaños fijos.
-const TITLE_SIZE = "clamp(1.8rem, 13cqw, 4.5rem)";
+const TITLE_SIZE = "clamp(1.925rem, 13cqw, 4.625rem)";
 const DETAIL_SIZE = "clamp(0.85rem, 3cqw, 1.05rem)";
 
 const fadeUp = {

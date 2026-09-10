@@ -29,18 +29,11 @@ export default function SpaldingSection() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             variants={fadeUp}
-            className="@container flex translate-y-[300px] flex-col items-center justify-center gap-6 md:flex-row md:items-center md:gap-10"
+            className="@container flex translate-y-[300px] flex-col items-center justify-center gap-6"
           >
-            <img
-              src="/logo-Spalding.svg"
-              alt="Spalding Academia Elite"
-              className="w-full shrink-0"
-              style={{ maxWidth: "clamp(14rem, 10rem + 12vw, 22rem)" }}
-            />
-
             <p
-              className="max-w-lg text-center text-bh-white/70 md:text-left"
-              style={{ fontSize: "clamp(1rem, 0.87rem + 0.4vw, 1.35rem)" }}
+              className="mx-auto text-center text-bh-white/70 sm:whitespace-nowrap"
+              style={{ fontSize: "clamp(1.25rem, calc(1.14rem + 0.4vw), 1.62rem)" }}
             >
               Somos una escuela certificada por Spalding.{" "}
               <br className="hidden sm:block" />
