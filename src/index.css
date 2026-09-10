@@ -67,30 +67,54 @@ body {
   animation: marquee 26s linear infinite;
 }
 
-/* Slideshow de 3 fotos superpuestas: cada una aparece detrás de la
-   anterior en bucle. Las 3 imágenes comparten esta misma animación de
-   12s, cada una desfasada con animation-delay negativo para ocupar su
-   propio tercio del ciclo (ver GiraArgentina.tsx). */
-@keyframes gira-slideshow {
-  0% {
+/* GIRA A LA ARGENTINA: la foto del Obelisco de Buenos Aires hace un
+   paneo/zoom lento y cinematográfico (Ken Burns) en bucle. Encima, la
+   misma foto con el trazo del campo de baloncesto (Obelisco-2) aparece
+   y desaparece con un fundido suave. Ambas capas comparten el mismo
+   contenedor .gira-kenburns para que el zoom quede siempre sincronizado
+   y el trazo encaje sobre la ciudad. */
+@keyframes gira-kenburns {
+  0%,
+  100% {
+    transform: scale(1.03);
+  }
+  50% {
+    transform: scale(1.11);
+  }
+}
+
+.gira-kenburns {
+  animation: gira-kenburns 26s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes gira-icon-reveal {
+  0%,
+  12% {
     opacity: 0;
   }
-  5% {
+  28%,
+  72% {
     opacity: 1;
   }
-  28% {
-    opacity: 1;
-  }
-  33.33% {
-    opacity: 0;
-  }
+  88%,
   100% {
     opacity: 0;
   }
 }
 
-.gira-slide {
-  animation: gira-slideshow 12s ease-in-out infinite backwards;
+.gira-icon {
+  animation: gira-icon-reveal 13s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gira-kenburns {
+    animation: none;
+  }
+  .gira-icon {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 /* ShinyButton: fondo con degradado animado (naranja de marca) y brillo,

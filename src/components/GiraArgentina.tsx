@@ -52,13 +52,6 @@ const numberRow = {
   show: { transition: { staggerChildren: 0.08 } },
 };
 
-const SLIDESHOW_IMAGES = [
-  "/gira-argentina-1.jpg",
-  "/gira-argentina-2.jpg",
-  "/gira-argentina-3.jpg",
-];
-const SLIDESHOW_CYCLE = 12; // segundos, debe coincidir con .gira-slide en index.css
-
 export default function GiraArgentina() {
   return (
     <section id="gira" className="relative bg-bh-black py-16 md:py-20">
@@ -71,15 +64,19 @@ export default function GiraArgentina() {
             variants={imageReveal}
             className="relative aspect-[16/11] overflow-hidden rounded-2xl md:col-span-2"
           >
-            {SLIDESHOW_IMAGES.map((src, i) => (
+            <div className="gira-kenburns absolute inset-0">
               <img
-                key={src}
-                src={src}
-                alt="Equipo de Basket House en su gira a Argentina"
-                className="gira-slide absolute inset-0 h-full w-full object-cover"
-                style={{ animationDelay: `${i * (SLIDESHOW_CYCLE / SLIDESHOW_IMAGES.length)}s` }}
+                src="/Obelisco-1.jpg"
+                alt="El Obelisco de Buenos Aires, destino de la gira"
+                className="absolute inset-0 h-full w-full object-cover"
               />
-            ))}
+              <img
+                src="/Obelisco-2.jpg"
+                alt=""
+                aria-hidden="true"
+                className="gira-icon absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
 
             <div
               className="absolute -left-16 top-8 z-30 w-56 -rotate-45 bg-[#2864b4] py-[3px] text-center shadow-[0_4px_12px_rgba(0,0,0,0.35)]"
