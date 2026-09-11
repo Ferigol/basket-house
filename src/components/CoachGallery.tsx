@@ -65,6 +65,10 @@ const DESC_SIZE = "clamp(0.8rem, 0.65rem + 0.35vw, 1.05rem)";
 // Tamaño real de cada SVG (su propio viewBox, en px), ajustado con varios
 // cambios sucesivos (0.75 * 1.15 * 1.10 * 1.10 * 1.10).
 const LOGO_SCALE = 1.1479875 * 0.8;
+// Escala aparte para móvil: calculada para que la fila más ancha (Regatas +
+// San Silvestre + Villa Caritas) entre completa en el ancho de pantalla
+// típico de un celular, en 3 columnas sin salto de línea.
+const MOBILE_LOGO_SCALE = 1.05;
 const LOGOS = [
   { src: "/logo-nivela.svg", alt: "Colegio Nivela", w: 68.57, h: 80 },
   { src: "/logo-mariareina.svg", alt: "Colegio Maria Reina", w: 50.35, h: 68.03 },
@@ -171,34 +175,30 @@ export default function CoachGallery() {
         variants={logoContainer}
         className="mx-auto mt-10 flex max-w-7xl flex-col gap-y-8 px-5 md:mt-14 md:px-8"
       >
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
-          {LOGOS.slice(0, 4).map((logo) => (
-            <motion.img
-              key={logo.src}
-              variants={logoItem}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              src={logo.src}
-              alt={logo.alt}
-              className="shrink-0 object-contain"
-              style={{ width: logo.w * LOGO_SCALE, height: logo.h * LOGO_SCALE }}
-            />
-          ))}
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
-          {LOGOS.slice(4, 6).map((logo) => (
-            <motion.img
-              key={logo.src}
-              variants={logoItem}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              src={logo.src}
-              alt={logo.alt}
-              className="shrink-0 object-contain"
-              style={{ width: logo.w * LOGO_SCALE, height: logo.h * LOGO_SCALE }}
-            />
-          ))}
-        </div>
+        {(isMobile ? [LOGOS.slice(0, 3), LOGOS.slice(3, 6)] : [LOGOS.slice(0, 4), LOGOS.slice(4, 6)]).map(
+          (row, ri) => (
+            <div
+              key={ri}
+              className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 max-md:flex-nowrap max-md:gap-x-4"
+            >
+              {row.map((logo) => (
+                <motion.img
+                  key={logo.src}
+                  variants={logoItem}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="shrink-0 object-contain"
+                  style={{
+                    width: logo.w * (isMobile ? MOBILE_LOGO_SCALE : LOGO_SCALE),
+                    height: logo.h * (isMobile ? MOBILE_LOGO_SCALE : LOGO_SCALE),
+                  }}
+                />
+              ))}
+            </div>
+          )
+        )}
       </motion.div>
     </section>
   );
