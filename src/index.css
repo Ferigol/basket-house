@@ -85,6 +85,17 @@ body {
   }
 }
 
+/* PROGRAMAS (GRUPAL/PERSONAL): en móvil, el título original
+   ("4.9rem + 9.5vw" o más, pensado para desktop) es tan grande que,
+   sumado al resto del bloque, no entra en el h-screen de la sección
+   pegajosa (sticky) y termina recortando el título por overflow-hidden.
+   Se reduce solo en móvil para que todo el bloque quepa en pantalla. */
+@media (max-width: 767px) {
+  .programas-title {
+    font-size: clamp(2.5rem, 13vw, 4rem) !important;
+  }
+}
+
 /* GIRA A LA ARGENTINA: la foto del Obelisco de Buenos Aires hace un
    paneo/zoom lento y cinematográfico (Ken Burns) en bucle. Encima, la
    misma foto con el trazo del campo de baloncesto (Obelisco-2) aparece

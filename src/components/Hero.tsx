@@ -86,7 +86,7 @@ export default function Hero() {
           CENTRO ELITE DE ALTO RENDIMIENTO
         </p>
 
-        <div className="hero-scroll flex -translate-y-[200px] flex-col items-center gap-2">
+        <div className="hero-scroll flex -translate-y-[200px] flex-col items-center gap-2 max-md:absolute max-md:inset-x-0 max-md:top-[58%] max-md:translate-y-[60px]">
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-bh-white/50 [text-shadow:0_2px_10px_rgba(0,0,0,0.7)]">
             Desliza
           </span>

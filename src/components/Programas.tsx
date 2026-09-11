@@ -61,9 +61,13 @@ const GALLERY_IMAGES = [
 // El texto ya está completo (sticky) desde el progreso 0 de este tramo.
 // La siguiente imagen empieza a entrar justo cuando la anterior llega a la
 // mitad de su recorrido (no cuando termina), por eso STRIDE = DURATION/2.
+// En móvil el stride es más chico (imágenes más "seguidas", con menos
+// separación entre una y otra) y las imágenes se muestran más grandes.
 const REVEAL_START = 0.02;
 const WINDOW_DURATION = 0.32; // cuánto dura activa cada imagen (más = más lento)
-const WINDOW_STRIDE = WINDOW_DURATION / 2;
+const MOBILE_WIDTH_MULTIPLIER = 1.35;
+const MOBILE_STRIDE_RATIO = 1 / 3.2;
+const DESKTOP_STRIDE_RATIO = 1 / 2;
 
 type SequentialImgProps = {
   src: string;
@@ -71,10 +75,11 @@ type SequentialImgProps = {
   leftPct: number;
   progress: MotionValue<number>;
   index: number;
+  stride: number;
 };
 
-function SequentialImg({ src, widthPct, leftPct, progress, index }: SequentialImgProps) {
-  const t0 = REVEAL_START + index * WINDOW_STRIDE;
+function SequentialImg({ src, widthPct, leftPct, progress, index, stride }: SequentialImgProps) {
+  const t0 = REVEAL_START + index * stride;
   const t1 = t0 + WINDOW_DURATION;
   // El fundido es breve, justo abajo (entrada) y justo arriba (salida). El
   // resto del recorrido va a plena opacidad, moviéndose sin pausas, así
@@ -111,14 +116,19 @@ export default function Programas() {
   // son el propio bloque saliendo de pantalla al liberarse el scroll.
   // Reescalamos el progreso para que 0→1 cubra exactamente esa ventana fija.
   const [viewportHeight, setViewportHeight] = useState(900);
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const update = () => setViewportHeight(window.innerHeight);
+    const update = () => {
+      setViewportHeight(window.innerHeight);
+      setIsMobile(window.innerWidth < 768);
+    };
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
   const pinFraction = SCROLL_ROOM / (SCROLL_ROOM + viewportHeight);
   const pinProgress = useTransform(scrollYProgress, [0, pinFraction], [0, 1]);
+  const stride = WINDOW_DURATION * (isMobile ? MOBILE_STRIDE_RATIO : DESKTOP_STRIDE_RATIO);
 
   return (
     <section id="programas" className="relative bg-bh-black">
@@ -133,10 +143,11 @@ export default function Programas() {
               <SequentialImg
                 key={img.src}
                 src={img.src}
-                widthPct={img.widthPct}
+                widthPct={img.widthPct * (isMobile ? MOBILE_WIDTH_MULTIPLIER : 1)}
                 leftPct={img.leftPct}
                 progress={pinProgress}
                 index={i}
+                stride={stride}
               />
             ))}
 
@@ -156,7 +167,7 @@ export default function Programas() {
                     }`}
                   >
                     <h3
-                      className={`font-display -mt-[0.16em] whitespace-nowrap leading-[0.8] text-bh-white ${
+                      className={`programas-title font-display -mt-[0.16em] whitespace-nowrap leading-[0.8] text-bh-white ${
                         isLeft
                           ? "text-left md:translate-x-[min(0px,640px-50vw)]"
                           : "text-right md:translate-x-[max(0px,50vw-640px)] md:translate-y-[20px]"
