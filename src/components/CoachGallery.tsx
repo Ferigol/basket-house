@@ -72,7 +72,7 @@ const DESC_SIZE = "clamp(0.8rem, 0.65rem + 0.35vw, 1.05rem)";
 
 // Tamaño real de cada SVG (su propio viewBox, en px), ajustado con varios
 // cambios sucesivos (0.75 * 1.15 * 1.10 * 1.10 * 1.10).
-const LOGO_SCALE = 1.1479875 * 0.8 * 1.2;
+const LOGO_SCALE = 1.1479875 * 0.8 * 1.2 * 1.1;
 // Escala aparte para móvil: más chica que antes, con más aire entre
 // logos, para que las 2 filas de 3 se vean prolijas y no apretadas.
 const MOBILE_LOGO_SCALE = 0.78;
@@ -188,7 +188,7 @@ export default function CoachGallery() {
           (row, ri) => (
             <div
               key={ri}
-              className="flex flex-wrap items-center justify-center gap-x-16 gap-y-6 max-md:flex-nowrap max-md:gap-x-7 max-md:gap-y-10"
+              className="flex flex-wrap items-center justify-center gap-x-20 gap-y-6 md:items-start max-md:flex-nowrap max-md:gap-x-7 max-md:gap-y-10"
             >
               {row.map((logo) => (
                 <motion.img
