@@ -25,10 +25,18 @@ const logoContainer = {
   show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
 };
 
-const logoItem = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 0.5, y: 0, transition: { duration: 0.6, ease: SMOOTH_EASE } },
-};
+// En desktop/tablet los logos descansan a 75% de opacidad; en móvil se
+// mantiene el 50% ya ajustado antes.
+function makeLogoItem(isMobile: boolean) {
+  return {
+    hidden: { opacity: 0, y: 14 },
+    show: {
+      opacity: isMobile ? 0.5 : 0.75,
+      y: 0,
+      transition: { duration: 0.6, ease: SMOOTH_EASE },
+    },
+  };
+}
 
 const TEAM = [
   {
@@ -64,7 +72,7 @@ const DESC_SIZE = "clamp(0.8rem, 0.65rem + 0.35vw, 1.05rem)";
 
 // Tamaño real de cada SVG (su propio viewBox, en px), ajustado con varios
 // cambios sucesivos (0.75 * 1.15 * 1.10 * 1.10 * 1.10).
-const LOGO_SCALE = 1.1479875 * 0.8;
+const LOGO_SCALE = 1.1479875 * 0.8 * 1.2;
 // Escala aparte para móvil: más chica que antes, con más aire entre
 // logos, para que las 2 filas de 3 se vean prolijas y no apretadas.
 const MOBILE_LOGO_SCALE = 0.78;
@@ -87,6 +95,8 @@ export default function CoachGallery() {
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
+
+  const logoItem = makeLogoItem(isMobile);
 
   return (
     <section id="coach" className="relative bg-bh-black py-16 md:py-20">
@@ -178,7 +188,7 @@ export default function CoachGallery() {
           (row, ri) => (
             <div
               key={ri}
-              className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 max-md:flex-nowrap max-md:gap-x-7 max-md:gap-y-10"
+              className="flex flex-wrap items-center justify-center gap-x-16 gap-y-6 max-md:flex-nowrap max-md:gap-x-7 max-md:gap-y-10"
             >
               {row.map((logo) => (
                 <motion.img
