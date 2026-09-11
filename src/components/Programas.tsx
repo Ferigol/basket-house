@@ -137,7 +137,7 @@ export default function Programas() {
         className="relative"
         style={{ height: `calc(${SCROLL_ROOM}px + 100vh)` }}
       >
-        <div className="sticky top-0 flex h-screen items-center overflow-hidden py-24 md:py-32">
+        <div className="sticky top-0 flex h-screen items-center overflow-hidden py-24 max-md:items-start max-md:py-16 md:py-32">
           <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
             {GALLERY_IMAGES.map((img, i) => (
               <SequentialImg
