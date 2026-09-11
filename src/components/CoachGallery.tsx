@@ -175,7 +175,7 @@ export default function CoachGallery() {
         variants={logoContainer}
         className="mx-auto mt-10 flex max-w-7xl flex-col gap-y-8 px-5 md:mt-14 md:px-8"
       >
-        {(isMobile ? [LOGOS.slice(0, 3), LOGOS.slice(3, 6)] : [LOGOS.slice(0, 4), LOGOS.slice(4, 6)]).map(
+        {(isMobile ? [LOGOS.slice(0, 3), LOGOS.slice(3, 6)] : [LOGOS]).map(
           (row, ri) => (
             <div
               key={ri}
