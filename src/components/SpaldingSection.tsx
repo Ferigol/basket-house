@@ -8,7 +8,7 @@ const fadeUp = {
 export default function SpaldingSection() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-bh-black"
+      className="relative w-full overflow-hidden bg-bh-black max-md:min-h-[440px]"
       style={{ aspectRatio: "1920 / 1080" }}
     >
       <div
@@ -22,7 +22,7 @@ export default function SpaldingSection() {
       />
 
       <div className="absolute inset-0">
-        <div className="absolute inset-x-0 top-[81%] mx-auto w-full max-w-7xl px-5 md:px-8">
+        <div className="absolute inset-x-0 top-[81%] mx-auto w-full max-w-7xl px-5 max-md:top-[58%] md:px-8">
           <motion.div
             initial="hidden"
             whileInView="show"
