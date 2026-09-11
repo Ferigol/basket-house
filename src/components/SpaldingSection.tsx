@@ -26,7 +26,7 @@ export default function SpaldingSection() {
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             variants={fadeUp}
             className="@container flex flex-col items-center justify-center gap-6"
