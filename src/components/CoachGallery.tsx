@@ -65,10 +65,9 @@ const DESC_SIZE = "clamp(0.8rem, 0.65rem + 0.35vw, 1.05rem)";
 // Tamaño real de cada SVG (su propio viewBox, en px), ajustado con varios
 // cambios sucesivos (0.75 * 1.15 * 1.10 * 1.10 * 1.10).
 const LOGO_SCALE = 1.1479875 * 0.8;
-// Escala aparte para móvil: calculada para que la fila más ancha (Regatas +
-// San Silvestre + Villa Caritas) entre completa en el ancho de pantalla
-// típico de un celular, en 3 columnas sin salto de línea.
-const MOBILE_LOGO_SCALE = 1.05;
+// Escala aparte para móvil: más chica que antes, con más aire entre
+// logos, para que las 2 filas de 3 se vean prolijas y no apretadas.
+const MOBILE_LOGO_SCALE = 0.78;
 const LOGOS = [
   { src: "/logo-nivela.svg", alt: "Colegio Nivela", w: 68.57, h: 80 },
   { src: "/logo-mariareina.svg", alt: "Colegio Maria Reina", w: 50.35, h: 68.03 },
@@ -173,13 +172,13 @@ export default function CoachGallery() {
         whileInView="show"
         viewport={{ once: true, amount: 0.4 }}
         variants={logoContainer}
-        className="mx-auto mt-10 flex max-w-7xl flex-col gap-y-8 px-5 md:mt-14 md:px-8"
+        className="mx-auto mt-10 flex max-w-7xl flex-col gap-y-8 px-5 max-md:gap-y-12 md:mt-14 md:px-8"
       >
         {(isMobile ? [LOGOS.slice(0, 3), LOGOS.slice(3, 6)] : [LOGOS]).map(
           (row, ri) => (
             <div
               key={ri}
-              className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 max-md:flex-nowrap max-md:gap-x-4"
+              className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 max-md:flex-nowrap max-md:gap-x-7 max-md:gap-y-10"
             >
               {row.map((logo) => (
                 <motion.img
