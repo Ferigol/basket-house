@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Mismo easing suave usado en el resto del sitio (NOSOTROS, GIRA 2027)
 // para que el movimiento se sienta fluido y consistente.
@@ -76,6 +76,14 @@ const LOGOS = [
 
 export default function CoachGallery() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 768);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   return (
     <section id="coach" className="relative bg-bh-black py-16 md:py-20">
@@ -97,9 +105,17 @@ export default function CoachGallery() {
               variants={photoItem}
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
-              className="relative shrink-0 grow basis-0 cursor-pointer overflow-hidden rounded-2xl transition-[flex-grow,filter] duration-500 ease-out"
+              className="relative min-w-0 shrink-0 grow basis-0 cursor-pointer overflow-hidden rounded-2xl transition-[flex-grow,filter] duration-500 ease-out"
               style={{
-                flexGrow: isHovered ? 2.2 : 1,
+                flexGrow: isMobile
+                  ? isHovered
+                    ? 1
+                    : hovered !== null
+                      ? 0
+                      : 1
+                  : isHovered
+                    ? 2.2
+                    : 1,
                 filter: isDimmed ? "blur(3px) brightness(0.5)" : "none",
               }}
             >
