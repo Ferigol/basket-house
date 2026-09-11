@@ -14,7 +14,7 @@ export default function FloatingNav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
+    <div className="fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 md:block">
       <div
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}

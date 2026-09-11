@@ -97,7 +97,7 @@ export default function GiraArgentina() {
           >
             <motion.h2
               variants={fadeUp}
-              className="font-display whitespace-nowrap leading-[0.9] text-bh-white"
+              className="gira-title font-display whitespace-nowrap leading-[0.9] text-bh-white"
               style={{ fontFamily: "var(--font-display)", fontSize: TITLE_SIZE }}
             >
               GIRA A LA ARGENTINA
@@ -106,7 +106,7 @@ export default function GiraArgentina() {
             <motion.div variants={numberRow} className="mt-8 flex items-center justify-between">
               <motion.span
                 variants={slideFromLeft}
-                className="font-display leading-none text-bh-white"
+                className="gira-number font-display leading-none text-bh-white"
                 style={{ fontFamily: "var(--font-display)", fontSize: NUMBER_SIZE }}
               >
                 01
@@ -143,7 +143,7 @@ export default function GiraArgentina() {
 
               <motion.span
                 variants={slideFromRight}
-                className="font-display leading-none text-bh-white"
+                className="gira-number font-display leading-none text-bh-white"
                 style={{ fontFamily: "var(--font-display)", fontSize: NUMBER_SIZE }}
               >
                 06

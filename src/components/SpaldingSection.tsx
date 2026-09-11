@@ -21,15 +21,15 @@ export default function SpaldingSection() {
         aria-hidden
       />
 
-      <div className="absolute inset-0 flex items-center">
-        <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
+      <div className="absolute inset-0">
+        <div className="absolute inset-x-0 top-[81%] mx-auto w-full max-w-7xl px-5 md:px-8">
           <motion.div
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             variants={fadeUp}
-            className="@container flex translate-y-[300px] flex-col items-center justify-center gap-6"
+            className="@container flex flex-col items-center justify-center gap-6"
           >
             <p
               className="mx-auto text-center text-bh-white/70 sm:whitespace-nowrap"

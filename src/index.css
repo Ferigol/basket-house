@@ -67,6 +67,24 @@ body {
   animation: marquee 26s linear infinite;
 }
 
+/* GIRA A LA ARGENTINA: solo en móvil, el título llega a 120px y
+   centrado, y el 01/06 20px más chicos que su tamaño fluido normal
+   (ver GiraArgentina.tsx). !important porque en desktop estos mismos
+   elementos usan tamaño inline (style=fontSize) que hay que sobrescribir. */
+@media (max-width: 767px) {
+  .gira-title {
+    /* Ajustado al ancho real disponible (100vw - 2*20px de padding) para
+       que el título quepa siempre en una sola línea sin desbordarse,
+       en cualquier ancho de pantalla móvil. */
+    font-size: clamp(2.5rem, calc(27.056vw - 10.822px), 14rem) !important;
+    text-align: center;
+  }
+
+  .gira-number {
+    font-size: clamp(6.5rem, calc(55.31cqw - 20px), 13.5rem) !important;
+  }
+}
+
 /* GIRA A LA ARGENTINA: la foto del Obelisco de Buenos Aires hace un
    paneo/zoom lento y cinematográfico (Ken Burns) en bucle. Encima, la
    misma foto con el trazo del campo de baloncesto (Obelisco-2) aparece

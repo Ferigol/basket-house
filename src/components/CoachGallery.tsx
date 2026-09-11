@@ -27,7 +27,7 @@ const logoContainer = {
 
 const logoItem = {
   hidden: { opacity: 0, y: 14 },
-  show: { opacity: 0.7, y: 0, transition: { duration: 0.6, ease: SMOOTH_EASE } },
+  show: { opacity: 0.5, y: 0, transition: { duration: 0.6, ease: SMOOTH_EASE } },
 };
 
 const TEAM = [
@@ -59,12 +59,12 @@ const TEAM = [
 // saltar entre 2-3 tamaños fijos.
 const HEIGHT_SIZE = "clamp(427.6px, 227.6px + 22vw, 667.6px)";
 const NAME_SIZE = "clamp(0.8rem, 0.7rem + 0.3vw, 1.05rem)";
-const ROLE_SIZE = "clamp(3.4375rem, 3.0875rem + 1.6vw, 4.7875rem)";
+const ROLE_SIZE = "clamp(3.25rem, 2.9rem + 1.6vw, 4.6rem)";
 const DESC_SIZE = "clamp(0.8rem, 0.65rem + 0.35vw, 1.05rem)";
 
 // Tamaño real de cada SVG (su propio viewBox, en px), ajustado con varios
 // cambios sucesivos (0.75 * 1.15 * 1.10 * 1.10 * 1.10).
-const LOGO_SCALE = 1.1479875;
+const LOGO_SCALE = 1.1479875 * 0.8;
 const LOGOS = [
   { src: "/logo-nivela.svg", alt: "Colegio Nivela", w: 68.57, h: 80 },
   { src: "/logo-mariareina.svg", alt: "Colegio Maria Reina", w: 50.35, h: 68.03 },
@@ -123,7 +123,7 @@ export default function CoachGallery() {
                       {member.name}
                     </p>
                     <p
-                      className="font-display text-bh-white"
+                      className="whitespace-nowrap font-display text-bh-white"
                       style={{
                         fontFamily: "var(--font-display)",
                         fontSize: ROLE_SIZE,
@@ -133,7 +133,7 @@ export default function CoachGallery() {
                       {member.role.toUpperCase()}
                     </p>
                     <p
-                      className="mt-2 max-w-sm text-bh-white/60"
+                      className="mt-2 max-w-sm text-bh-white/60 max-md:whitespace-nowrap max-md:tracking-[-1px]"
                       style={{ fontSize: DESC_SIZE }}
                     >
                       {member.description[0]}
@@ -153,20 +153,36 @@ export default function CoachGallery() {
         whileInView="show"
         viewport={{ once: true, amount: 0.4 }}
         variants={logoContainer}
-        className="mx-auto mt-10 flex max-w-7xl flex-wrap items-center justify-between gap-x-10 gap-y-6 px-5 md:mt-14 md:px-8"
+        className="mx-auto mt-10 flex max-w-7xl flex-col gap-y-8 px-5 md:mt-14 md:px-8"
       >
-        {LOGOS.map((logo) => (
-          <motion.img
-            key={logo.src}
-            variants={logoItem}
-            whileHover={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            src={logo.src}
-            alt={logo.alt}
-            className="shrink-0 object-contain"
-            style={{ width: logo.w * LOGO_SCALE, height: logo.h * LOGO_SCALE }}
-          />
-        ))}
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+          {LOGOS.slice(0, 4).map((logo) => (
+            <motion.img
+              key={logo.src}
+              variants={logoItem}
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              src={logo.src}
+              alt={logo.alt}
+              className="shrink-0 object-contain"
+              style={{ width: logo.w * LOGO_SCALE, height: logo.h * LOGO_SCALE }}
+            />
+          ))}
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+          {LOGOS.slice(4, 6).map((logo) => (
+            <motion.img
+              key={logo.src}
+              variants={logoItem}
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              src={logo.src}
+              alt={logo.alt}
+              className="shrink-0 object-contain"
+              style={{ width: logo.w * LOGO_SCALE, height: logo.h * LOGO_SCALE }}
+            />
+          ))}
+        </div>
       </motion.div>
     </section>
   );

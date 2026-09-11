@@ -8,6 +8,7 @@ import SpaldingSection from "./components/SpaldingSection";
 import Footer from "./components/Footer";
 import GrainOverlay from "./components/GrainOverlay";
 import FloatingNav from "./components/FloatingNav";
+import MobileNav from "./components/MobileNav";
 import { useLenis } from "./lib/useLenis";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       </main>
       <Footer />
       <FloatingNav />
+      <MobileNav />
     </>
   );
 }
